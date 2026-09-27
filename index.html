@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f4f7f4">
+    <title>Saffron & Stone | Kitchen Menu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header" id="home">
+        <a class="brand" href="#home" aria-label="Saffron and Stone home">
+            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=120&h=120&q=85" alt="Fresh ingredients logo">
+            <span>Saffron <i>&</i> Stone</span>
+        </a>
+        <nav aria-label="Main navigation">
+            <a class="nav-link active" href="#home">Home</a>
+            <a class="nav-link" href="#about">About us</a>
+            <a class="nav-link" href="#contact">Contact us</a>
+        </nav>
+    </header>
+
+    <div class="menu-toolbar">
+        <div class="toolbar-inner">
+            <div>
+                <span class="toolbar-kicker">STAFF ACCESS</span>
+                <span class="toolbar-title">Manage restaurant menu</span>
+            </div>
+            <div class="toolbar-actions">
+                <button class="button button-primary" id="open-admin-dialog" type="button">
+                    Admin panel <span aria-hidden="true">&rarr;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section class="intro" aria-labelledby="page-title">
+            <div>
+                <p class="eyebrow"><span></span> GOOD FOOD, MADE HERE</p>
+                <h1 id="page-title">A little something<br>for every appetite.</h1>
+            </div>
+            <p class="intro-note">Seasonal ingredients, generous plates, and the kind of meal that makes you stay a little longer.</p>
+        </section>
+
+        <section class="menu-layout" aria-label="Food menu and your order">
+            <div class="menu-section">
+                <div class="menu-heading">
+                    <div>
+                        <h2>Today's menu</h2>
+                        <p>Made fresh. Ready when you are.</p>
+                    </div>
+                    <span class="open-status"><span></span> OPEN FOR ORDERS</span>
+                </div>
+                <div class="category-list" id="category-list" aria-label="Filter menu categories"></div>
+                <div class="menu-grid" id="menu-grid"></div>
+            </div>
+
+            <aside class="order-panel" aria-labelledby="order-title">
+                <div class="order-panel-heading">
+                    <div>
+                        <p class="eyebrow">YOUR TABLE</p>
+                        <h2 id="order-title">Your order <span id="order-count">0</span></h2>
+                    </div>
+                    <span class="order-mark" aria-hidden="true">S.</span>
+                </div>
+                <p class="order-empty" id="order-empty">Your order is waiting for something delicious.</p>
+                <div class="order-items" id="order-items"></div>
+                <div class="order-total">
+                    <span>Total</span>
+                    <strong id="order-total">₹0.00</strong>
+                </div>
+                <button class="button button-order" id="place-order" type="button" disabled>Place order <span aria-hidden="true">&rarr;</span></button>
+                <p class="order-note" id="order-note" aria-live="polite">Orders are shown here before checkout.</p>
+            </aside>
+        </section>
+
+        <section class="about-section" id="about">
+            <p class="eyebrow">A NOTE FROM OUR KITCHEN</p>
+            <h2>Good things take a little care.</h2>
+            <p>We cook with the seasons, work with local growers, and make every plate to order. Thanks for pulling up a chair.</p>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <a class="brand footer-brand" href="#home">
+            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=120&h=120&q=85" alt="">
+            <span>Saffron <i>&</i> Stone</span>
+        </a>
+        <p>Questions about your order? <a href="mailto:hello@saffronandstone.example">Contact our team</a></p>
+        <span class="footer-hours">TUE-SUN &nbsp; 11 AM-9 PM</span>
+    </footer>
+
+    <dialog class="add-dialog" id="add-dialog" aria-labelledby="dialog-title">
+        <form id="add-item-form">
+            <div class="dialog-heading">
+                <div>
+                    <p class="eyebrow">KITCHEN TOOLS</p>
+                    <h2 id="dialog-title">Add to the menu</h2>
+                </div>
+                <button class="close-button" id="close-add-dialog" type="button" aria-label="Close">&times;</button>
+            </div>
+            <label class="image-upload" for="item-image">
+                <span class="upload-icon" aria-hidden="true">+</span>
+                <span><strong>Choose a dish photo</strong><small>JPG, PNG, or WebP</small></span>
+                <input id="item-image" name="image" type="file" accept="image/*" required>
+            </label>
+            <div class="dialog-fields">
+                <label>Dish name<input id="item-name" name="name" type="text" placeholder="e.g. Garden herb pasta" maxlength="60" required></label>
+                <label>Category
+                    <select id="item-category" name="category">
+                        <option>Mains</option>
+                        <option>Small plates</option>
+                        <option>Salads</option>
+                        <option>Desserts</option>
+                        <option>Drinks</option>
+                    </select>
+                </label>
+                <label class="field-wide">Description<input id="item-description" name="description" type="text" placeholder="A few words about the dish" maxlength="100"></label>
+                <label>Price (INR)<input id="item-price" name="price" type="number" min="0.01" step="0.01" placeholder="1200.00" required></label>
+            </div>
+            <div class="dialog-actions">
+                <button class="button button-quiet" id="cancel-add" type="button">Cancel</button>
+                <button class="button button-primary" type="submit">Add to menu</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog class="add-dialog remove-dialog" id="remove-dialog" aria-labelledby="remove-dialog-title">
+        <div class="remove-dialog-content">
+            <div class="dialog-heading">
+                <div>
+                    <p class="eyebrow">KITCHEN TOOLS</p>
+                    <h2 id="remove-dialog-title">Remove a menu item</h2>
+                </div>
+                <button class="close-button" id="close-remove-dialog" type="button" aria-label="Close">&times;</button>
+            </div>
+            <p class="remove-dialog-note">Choose a dish to take it off the menu.</p>
+            <div class="remove-list" id="remove-list"></div>
+        </div>
+    </dialog>
+
+    <dialog class="add-dialog admin-dialog" id="admin-dialog" aria-labelledby="admin-dialog-title">
+        <div class="admin-dialog-content">
+            <div class="dialog-heading">
+                <div>
+                    <p class="eyebrow">STAFF ACCESS</p>
+                    <h2 id="admin-dialog-title">Admin panel</h2>
+                </div>
+                <button class="close-button" id="close-admin-dialog" type="button" aria-label="Close">&times;</button>
+            </div>
+
+            <section id="admin-auth-view">
+                <p class="admin-description" id="admin-auth-description">Set a password to protect menu management on this browser.</p>
+                <form class="admin-form" id="admin-auth-form">
+                    <label class="admin-field" for="admin-password">Password
+                        <input id="admin-password" type="password" minlength="8" autocomplete="new-password" required>
+                    </label>
+                    <label class="admin-field" id="admin-confirm-field" for="admin-password-confirm">Confirm password
+                        <input id="admin-password-confirm" type="password" minlength="8" autocomplete="new-password" required>
+                    </label>
+                    <p class="admin-feedback" id="admin-auth-feedback" role="status" aria-live="polite"></p>
+                    <button class="button button-primary admin-submit" id="admin-auth-submit" type="submit">Set admin password</button>
+                </form>
+            </section>
+
+            <section id="admin-controls" hidden>
+                <p class="admin-description">Menu management is unlocked for this session.</p>
+                <div class="admin-notification" id="admin-notification" role="status" aria-live="polite" hidden>
+                    <span class="notification-icon" aria-hidden="true">!</span>
+                    <div class="notification-copy">
+                        <strong id="admin-notification-title">New customer order</strong>
+                        <span id="admin-notification-message"></span>
+                    </div>
+                    <button class="notification-dismiss" id="mark-orders-viewed" type="button">Mark viewed</button>
+                </div>
+                <div class="admin-menu-actions">
+                    <button class="button button-primary" id="open-add-dialog" type="button"><span aria-hidden="true">+</span> Add menu item</button>
+                    <button class="button button-danger-quiet" id="open-remove-dialog" type="button"><span aria-hidden="true">&minus;</span> Remove menu item</button>
+                </div>
+                <section class="admin-orders" aria-labelledby="admin-orders-title">
+                    <div class="admin-orders-heading">
+                        <div>
+                            <h3 id="admin-orders-title">Live customer orders</h3>
+                            <p>New orders placed in this browser session appear here.</p>
+                        </div>
+                        <span class="admin-order-count" id="admin-order-count">0 orders</span>
+                    </div>
+                    <p class="admin-orders-empty" id="admin-orders-empty">No customer orders yet.</p>
+                    <div class="admin-orders-table-wrap">
+                        <table class="admin-orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order</th>
+                                    <th>Time</th>
+                                    <th>Customer</th>
+                                    <th>Mobile</th>
+                                    <th>Table</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-orders-body"></tbody>
+                        </table>
+                    </div>
+                </section>
+                <form class="admin-form password-change-form" id="change-admin-password-form">
+                    <h3>Change password</h3>
+                    <label class="admin-field" for="current-admin-password">Current password
+                        <input id="current-admin-password" type="password" autocomplete="current-password" required>
+                    </label>
+                    <label class="admin-field" for="new-admin-password">New password
+                        <input id="new-admin-password" type="password" minlength="8" autocomplete="new-password" required>
+                    </label>
+                    <label class="admin-field" for="confirm-admin-password">Confirm new password
+                        <input id="confirm-admin-password" type="password" minlength="8" autocomplete="new-password" required>
+                    </label>
+                    <p class="admin-feedback" id="password-change-feedback" role="status" aria-live="polite"></p>
+                    <button class="button button-quiet" type="submit">Update password</button>
+                </form>
+                <p class="admin-security-note">This browser-only password gate is for the demo. Real access control needs a server.</p>
+                <button class="admin-lock-button" id="lock-admin-panel" type="button">Lock admin panel</button>
+            </section>
+        </div>
+    </dialog>
+
+    <dialog class="add-dialog checkout-dialog" id="checkout-dialog" aria-labelledby="checkout-title">
+        <form id="checkout-form">
+            <div class="dialog-heading">
+                <div>
+                    <p class="eyebrow">ALMOST READY</p>
+                    <h2 id="checkout-title">Your table order</h2>
+                </div>
+                <button class="close-button" id="close-checkout" type="button" aria-label="Close">&times;</button>
+            </div>
+            <p class="checkout-summary" id="checkout-summary"></p>
+            <div class="checkout-fields">
+                <label for="customer-name">Your name
+                    <input id="customer-name" name="customerName" type="text" autocomplete="name" maxlength="70" placeholder="Name for the order" required>
+                </label>
+                <label for="customer-mobile">Mobile number
+                    <input id="customer-mobile" name="mobile" type="tel" inputmode="tel" autocomplete="tel" title="Enter 7 to 15 digits; spaces, +, parentheses, and hyphens are allowed." placeholder="e.g. +1 555 123 4567" required>
+                </label>
+                <label for="customer-table">Table number
+                    <input id="customer-table" name="tableNumber" type="number" min="1" max="999" step="1" inputmode="numeric" placeholder="e.g. 12" required>
+                </label>
+            </div>
+            <p class="checkout-feedback" id="checkout-feedback" role="status" aria-live="polite"></p>
+            <div class="dialog-actions">
+                <button class="button button-quiet" id="cancel-checkout" type="button">Cancel</button>
+                <button class="button button-primary" id="submit-order" type="submit">Submit order</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script>
+        const menuItems = [
+            { id: "herb-pasta", name: "Lemon herb pasta", description: "Fresh tagliatelle, garden herbs, parmesan", category: "Mains", price: 16, image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=85" },
+            { id: "market-bowl", name: "The market bowl", description: "Crisp greens, avocado, toasted seeds", category: "Salads", price: 13, image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=85" },
+            { id: "stone-pizza", name: "Stone-baked pizza", description: "Slow tomato, mozzarella, fresh basil", category: "Mains", price: 18, image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=85" },
+            { id: "chocolate-tart", name: "Dark chocolate tart", description: "Silky chocolate, sea salt, berry cream", category: "Desserts", price: 9, image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&q=85" }
+        ];
+        const order = new Map();
+        const placedOrders = [];
+        let selectedCategory = "All";
+        let nextOrderNumber = 1;
+        let unreadOrderCount = 0;
+
+        const menuGrid = document.getElementById("menu-grid");
+        const categoryList = document.getElementById("category-list");
+        const orderItems = document.getElementById("order-items");
+        const money = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" });
+        const adminCredentialKey = "saffron-stone-admin-credential";
+        const passwordIterations = 120000;
+        let adminUnlocked = false;
+
+        function renderCategories() {
+            const categories = ["All", ...new Set(menuItems.map((item) => item.category))];
+            categoryList.replaceChildren();
+            categories.forEach((category) => {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = `category-button${selectedCategory === category ? " selected" : ""}`;
+                button.textContent = category;
+                button.setAttribute("aria-pressed", String(selectedCategory === category));
+                button.addEventListener("click", () => {
+                    selectedCategory = category;
+                    renderCategories();
+                    renderMenu();
+                });
+                categoryList.append(button);
+            });
+        }
+
+        function renderMenu() {
+            menuGrid.replaceChildren();
+            const visibleItems = menuItems.filter((item) => selectedCategory === "All" || item.category === selectedCategory);
+            visibleItems.forEach((item) => {
+                const card = document.createElement("article");
+                card.className = "menu-card";
+                const image = document.createElement("img");
+                image.className = "dish-image";
+                image.src = item.image;
+                image.alt = item.name;
+                image.loading = "lazy";
+
+                const details = document.createElement("div");
+                details.className = "dish-details";
+                const category = document.createElement("span");
+                category.className = "dish-category";
+                category.textContent = item.category;
+                const name = document.createElement("h3");
+                name.textContent = item.name;
+                const description = document.createElement("p");
+                description.className = "dish-description";
+                description.textContent = item.description;
+                const footer = document.createElement("div");
+                footer.className = "dish-footer";
+                const price = document.createElement("strong");
+                price.textContent = money.format(item.price);
+                const addButton = document.createElement("button");
+                addButton.type = "button";
+                addButton.className = "add-to-order";
+                addButton.textContent = "Add +";
+                addButton.setAttribute("aria-label", `Add ${item.name} to your order`);
+                addButton.addEventListener("click", () => addToOrder(item.id));
+                footer.append(price, addButton);
+                details.append(category, name, description, footer);
+                card.append(image, details);
+                menuGrid.append(card);
+            });
+        }
+
+        function addToOrder(itemId) {
+            order.set(itemId, (order.get(itemId) || 0) + 1);
+            renderOrder();
+        }
+
+        function renderRemovalList() {
+            const removalList = document.getElementById("remove-list");
+            removalList.replaceChildren();
+            if (menuItems.length === 0) {
+                const emptyMessage = document.createElement("p");
+                emptyMessage.className = "remove-empty";
+                emptyMessage.textContent = "There are no menu items to remove.";
+                removalList.append(emptyMessage);
+                return;
+            }
+
+            menuItems.forEach((item) => {
+                const row = document.createElement("div");
+                row.className = "remove-row";
+                const image = document.createElement("img");
+                image.src = item.image;
+                image.alt = "";
+                const details = document.createElement("div");
+                details.className = "remove-item-details";
+                const name = document.createElement("strong");
+                name.textContent = item.name;
+                const meta = document.createElement("span");
+                meta.textContent = `${item.category} · ${money.format(item.price)}`;
+                details.append(name, meta);
+
+                const removeButton = document.createElement("button");
+                removeButton.type = "button";
+                removeButton.className = "remove-item-button";
+                removeButton.textContent = "Remove";
+                removeButton.setAttribute("aria-label", `Remove ${item.name} from menu`);
+                removeButton.addEventListener("click", () => removeMenuItem(item.id));
+                row.append(image, details, removeButton);
+                removalList.append(row);
+            });
+        }
+
+        function removeMenuItem(itemId) {
+            const itemIndex = menuItems.findIndex((item) => item.id === itemId);
+            if (itemIndex === -1) return;
+            menuItems.splice(itemIndex, 1);
+            order.delete(itemId);
+            if (selectedCategory !== "All" && !menuItems.some((item) => item.category === selectedCategory)) {
+                selectedCategory = "All";
+            }
+            renderCategories();
+            renderMenu();
+            renderOrder();
+            renderRemovalList();
+        }
+
+        function renderOrder() {
+            orderItems.replaceChildren();
+            let itemCount = 0;
+            let total = 0;
+            order.forEach((quantity, itemId) => {
+                const item = menuItems.find((menuItem) => menuItem.id === itemId);
+                if (!item || quantity < 1) return;
+                itemCount += quantity;
+                total += item.price * quantity;
+
+                const row = document.createElement("div");
+                row.className = "order-row";
+                const description = document.createElement("div");
+                description.className = "order-item-description";
+                const name = document.createElement("strong");
+                name.textContent = item.name;
+                const price = document.createElement("span");
+                price.textContent = money.format(item.price * quantity);
+                description.append(name, price);
+
+                const controls = document.createElement("div");
+                controls.className = "quantity-controls";
+                const decrease = document.createElement("button");
+                decrease.type = "button";
+                decrease.textContent = "−";
+                decrease.setAttribute("aria-label", `Remove one ${item.name}`);
+                decrease.addEventListener("click", () => {
+                    if (quantity === 1) order.delete(itemId);
+                    else order.set(itemId, quantity - 1);
+                    renderOrder();
+                });
+                const count = document.createElement("span");
+                count.textContent = quantity;
+                const increase = document.createElement("button");
+                increase.type = "button";
+                increase.textContent = "+";
+                increase.setAttribute("aria-label", `Add one ${item.name}`);
+                increase.addEventListener("click", () => addToOrder(itemId));
+                controls.append(decrease, count, increase);
+                row.append(description, controls);
+                orderItems.append(row);
+            });
+
+            document.getElementById("order-count").textContent = itemCount;
+            document.getElementById("order-total").textContent = money.format(total);
+            document.getElementById("order-empty").hidden = itemCount > 0;
+            document.getElementById("place-order").disabled = itemCount === 0;
+        }
+
+        function renderAdminOrders() {
+            const rows = document.getElementById("admin-orders-body");
+            rows.replaceChildren();
+            document.getElementById("admin-orders-empty").hidden = placedOrders.length > 0;
+            document.getElementById("admin-order-count").textContent = `${placedOrders.length} ${placedOrders.length === 1 ? "order" : "orders"}`;
+            updateAdminNotification();
+
+            placedOrders.forEach((placedOrder) => {
+                const row = document.createElement("tr");
+                [placedOrder.id, placedOrder.time, placedOrder.customerName, placedOrder.customerMobile, placedOrder.tableNumber, placedOrder.items, money.format(placedOrder.total)].forEach((value) => {
+                    const cell = document.createElement("td");
+                    cell.textContent = value;
+                    row.append(cell);
+                });
+                rows.append(row);
+            });
+        }
+
+        function updateAdminNotification() {
+            const notification = document.getElementById("admin-notification");
+            const latestOrder = placedOrders[0];
+            notification.hidden = unreadOrderCount === 0;
+            if (unreadOrderCount === 0 || !latestOrder) return;
+            document.getElementById("admin-notification-title").textContent = `${unreadOrderCount} new ${unreadOrderCount === 1 ? "order" : "orders"}`;
+            document.getElementById("admin-notification-message").textContent = `Latest: ${latestOrder.customerName}, table ${latestOrder.tableNumber}, ${money.format(latestOrder.total)}.`;
+        }
+
+        const addDialog = document.getElementById("add-dialog");
+        const removeDialog = document.getElementById("remove-dialog");
+        const adminDialog = document.getElementById("admin-dialog");
+        const checkoutDialog = document.getElementById("checkout-dialog");
+        document.getElementById("open-admin-dialog").addEventListener("click", () => {
+            configureAdminDialog();
+            adminDialog.showModal();
+        });
+        document.getElementById("close-admin-dialog").addEventListener("click", () => adminDialog.close());
+        adminDialog.addEventListener("close", () => {
+            adminUnlocked = false;
+            configureAdminDialog();
+        });
+        document.getElementById("open-add-dialog").addEventListener("click", () => {
+            adminDialog.close();
+            addDialog.showModal();
+        });
+        document.getElementById("close-add-dialog").addEventListener("click", () => addDialog.close());
+        document.getElementById("cancel-add").addEventListener("click", () => addDialog.close());
+        document.getElementById("open-remove-dialog").addEventListener("click", () => {
+            adminDialog.close();
+            renderRemovalList();
+            removeDialog.showModal();
+        });
+        document.getElementById("close-remove-dialog").addEventListener("click", () => removeDialog.close());
+        document.getElementById("close-checkout").addEventListener("click", () => checkoutDialog.close());
+        document.getElementById("cancel-checkout").addEventListener("click", () => checkoutDialog.close());
+
+        function getAdminCredential() {
+            try {
+                return JSON.parse(localStorage.getItem(adminCredentialKey));
+            } catch {
+                return null;
+            }
+        }
+
+        async function hashAdminPassword(password, saltHex) {
+            const salt = Uint8Array.from(saltHex.match(/.{2}/g), (part) => Number.parseInt(part, 16));
+            const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
+            const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt, iterations: passwordIterations, hash: "SHA-256" }, key, 256);
+            return Array.from(new Uint8Array(bits), (byte) => byte.toString(16).padStart(2, "0")).join("");
+        }
+
+        async function createAdminCredential(password) {
+            const salt = Array.from(crypto.getRandomValues(new Uint8Array(16)), (byte) => byte.toString(16).padStart(2, "0")).join("");
+            return { salt, hash: await hashAdminPassword(password, salt) };
+        }
+
+        async function verifyAdminPassword(password, credential) {
+            return hashAdminPassword(password, credential.salt).then((hash) => hash === credential.hash);
+        }
+
+        function configureAdminDialog() {
+            const hasCredential = Boolean(getAdminCredential());
+            document.getElementById("admin-dialog").classList.toggle("admin-dialog-wide", adminUnlocked);
+            document.getElementById("admin-auth-view").hidden = adminUnlocked;
+            document.getElementById("admin-controls").hidden = !adminUnlocked;
+            document.getElementById("admin-confirm-field").hidden = hasCredential;
+            document.getElementById("admin-password-confirm").required = !hasCredential;
+            document.getElementById("admin-auth-description").textContent = hasCredential
+                ? "Enter your admin password to manage the menu."
+                : "Set a password to protect menu management on this browser.";
+            document.getElementById("admin-auth-submit").textContent = hasCredential ? "Unlock admin panel" : "Set admin password";
+            document.getElementById("admin-password").autocomplete = hasCredential ? "current-password" : "new-password";
+            document.getElementById("admin-auth-form").reset();
+            document.getElementById("admin-auth-feedback").textContent = "";
+            document.getElementById("change-admin-password-form").reset();
+            document.getElementById("password-change-feedback").textContent = "";
+        }
+
+        document.getElementById("admin-auth-form").addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const password = document.getElementById("admin-password").value;
+            const feedback = document.getElementById("admin-auth-feedback");
+            const submitButton = document.getElementById("admin-auth-submit");
+            const credential = getAdminCredential();
+            submitButton.disabled = true;
+            feedback.textContent = "";
+
+            try {
+                if (credential) {
+                    if (!await verifyAdminPassword(password, credential)) {
+                        feedback.textContent = "That password doesn't match. Try again.";
+                        return;
+                    }
+                } else {
+                    const confirmation = document.getElementById("admin-password-confirm").value;
+                    if (password !== confirmation) {
+                        feedback.textContent = "The passwords don't match.";
+                        return;
+                    }
+                    localStorage.setItem(adminCredentialKey, JSON.stringify(await createAdminCredential(password)));
+                }
+                adminUnlocked = true;
+                configureAdminDialog();
+            } catch {
+                feedback.textContent = "Password storage isn't available in this browser.";
+            } finally {
+                submitButton.disabled = false;
+            }
+        });
+
+        document.getElementById("change-admin-password-form").addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const form = event.currentTarget;
+            const feedback = document.getElementById("password-change-feedback");
+            const credential = getAdminCredential();
+            const currentPassword = document.getElementById("current-admin-password").value;
+            const newPassword = document.getElementById("new-admin-password").value;
+            const confirmation = document.getElementById("confirm-admin-password").value;
+            feedback.textContent = "";
+
+            try {
+                if (!credential || !await verifyAdminPassword(currentPassword, credential)) {
+                    feedback.textContent = "Your current password doesn't match.";
+                    return;
+                }
+                if (newPassword !== confirmation) {
+                    feedback.textContent = "The new passwords don't match.";
+                    return;
+                }
+                localStorage.setItem(adminCredentialKey, JSON.stringify(await createAdminCredential(newPassword)));
+                form.reset();
+                feedback.textContent = "Password updated.";
+            } catch {
+                feedback.textContent = "Password storage isn't available in this browser.";
+            }
+        });
+
+        document.getElementById("lock-admin-panel").addEventListener("click", () => {
+            adminUnlocked = false;
+            configureAdminDialog();
+        });
+        document.getElementById("mark-orders-viewed").addEventListener("click", () => {
+            unreadOrderCount = 0;
+            updateAdminNotification();
+        });
+
+        document.getElementById("add-item-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            const form = event.currentTarget;
+            const imageFile = document.getElementById("item-image").files[0];
+            const newItem = {
+                id: `dish-${Date.now()}`,
+                name: document.getElementById("item-name").value.trim(),
+                category: document.getElementById("item-category").value,
+                description: document.getElementById("item-description").value.trim() || "Freshly prepared in our kitchen",
+                price: Number(document.getElementById("item-price").value),
+                image: URL.createObjectURL(imageFile)
+            };
+            menuItems.unshift(newItem);
+            selectedCategory = "All";
+            renderCategories();
+            renderMenu();
+            form.reset();
+            addDialog.close();
+        });
+
+        document.getElementById("place-order").addEventListener("click", () => {
+            const itemCount = Array.from(order.values()).reduce((total, quantity) => total + quantity, 0);
+            document.getElementById("checkout-summary").textContent = `${itemCount} ${itemCount === 1 ? "item" : "items"} · ${document.getElementById("order-total").textContent}`;
+            document.getElementById("checkout-feedback").textContent = "";
+            document.getElementById("submit-order").disabled = false;
+            checkoutDialog.showModal();
+        });
+
+        document.getElementById("checkout-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            const customerName = document.getElementById("customer-name").value.trim();
+            const customerMobile = document.getElementById("customer-mobile").value.trim();
+            const tableNumber = document.getElementById("customer-table").value;
+            const itemCount = Array.from(order.values()).reduce((total, quantity) => total + quantity, 0);
+            if (itemCount === 0) return;
+
+            const normalizedMobile = customerMobile.replace(/[\s().-]/g, "");
+            if (!/^\+?[0-9]{7,15}$/.test(normalizedMobile)) {
+                document.getElementById("checkout-feedback").textContent = "Enter a valid mobile number with 7 to 15 digits.";
+                document.getElementById("customer-mobile").focus();
+                return;
+            }
+
+            const orderLines = Array.from(order.entries()).map(([itemId, quantity]) => {
+                const item = menuItems.find((menuItem) => menuItem.id === itemId);
+                return item ? `${quantity} x ${item.name}` : "";
+            }).filter(Boolean);
+            const total = Array.from(order.entries()).reduce((sum, [itemId, quantity]) => {
+                const item = menuItems.find((menuItem) => menuItem.id === itemId);
+                return sum + (item ? item.price * quantity : 0);
+            }, 0);
+            placedOrders.unshift({
+                id: `#${String(nextOrderNumber++).padStart(3, "0")}`,
+                time: new Intl.DateTimeFormat(undefined, { hour: "numeric", minute: "2-digit" }).format(new Date()),
+                customerName,
+                customerMobile,
+                tableNumber,
+                items: orderLines.join(", "),
+                total
+            });
+            unreadOrderCount += 1;
+            renderAdminOrders();
+
+            document.getElementById("checkout-feedback").textContent = `Thank you, ${customerName}. Your order for table ${tableNumber} is ready. This demo does not send orders to the kitchen.`;
+            document.getElementById("order-note").textContent = `Thanks, ${customerName}. Your order for table ${tableNumber} was submitted.`;
+            document.getElementById("submit-order").disabled = true;
+            order.clear();
+            renderOrder();
+            checkoutDialog.close();
+        });
+
+        renderCategories();
+        renderMenu();
+        renderOrder();
+        renderAdminOrders();
+    </script>
+</body>
+</html>
